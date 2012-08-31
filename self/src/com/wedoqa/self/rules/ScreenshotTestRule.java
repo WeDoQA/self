@@ -24,6 +24,7 @@ public class ScreenshotTestRule implements MethodRule {
                 try {
                     statement.evaluate();
                 } catch (Throwable t) {
+                	
                     captureScreenshot(frameworkMethod.getName());
                     throw t; // rethrow to allow the failure to be reported to JUnit
                 }
@@ -32,7 +33,7 @@ public class ScreenshotTestRule implements MethodRule {
             public void captureScreenshot(String fileName) {
                 try {
                File screenshot =  ((TakesScreenshot)TestBase.getDriver()).getScreenshotAs(OutputType.FILE);
-               FileUtils.copyFile(screenshot, new File("./screenshot-"+fileName+".png"));
+               FileUtils.copyFile(screenshot, new File("./screenshots/screenshot-"+fileName+".png"));
 
                 } catch (Exception e) {
                     // No need to crash the tests if the screenshot fails

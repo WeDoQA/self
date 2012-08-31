@@ -4,7 +4,10 @@ import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.MethodRule;
 import org.junit.rules.TestName;
+import org.junit.rules.TestWatchman;
+import org.junit.runners.model.FrameworkMethod;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -21,22 +24,28 @@ import com.wedoqa.self.rules.ScreenshotTestRule;
  * @author Tihomir Turzai
  *
  */
-public class TestBase {
+public abstract class TestBase {
 
-	 static WebDriver driver;
-	 //   static Selenium selenium;
 	 
-	 protected final static Logger logger = LoggerFactory.getLogger(TestBase.class);
-	  
+	 	protected final static Logger logger = LoggerFactory.getLogger(TestBase.class);
+		protected static WebDriver driver;
+  
 	    @Rule
 	    public ScreenshotTestRule screenshotTestRule = new ScreenshotTestRule();
 	 
 	    @Rule 
 	    public TestName name = new TestName();
 
+	    @Rule public MethodRule watchman = new TestWatchman() {
+	        public void starting(FrameworkMethod method) {
+	          logger.info("Starting: {}", method.getName());
+	        }
+	      };
+
+	      
 	    @BeforeClass
 	    public static void beforeClass() {
-	        driver = new FirefoxDriver();	      
+	    	  driver = new FirefoxDriver();	      
 		    }
 	 
 	    @AfterClass
@@ -48,6 +57,10 @@ public class TestBase {
 	   
 		public static WebDriver getDriver() {
 			return driver;
+		}
+
+		public static void setDriver(WebDriver driver) {
+			TestBase.driver = driver;
 		}
 
 	    
