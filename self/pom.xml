@@ -90,4 +90,15 @@
       </plugin>
     </plugins>
   </build>
+  <distributionManagement>
+	<repository>
+		<id>repo</id>
+		<url>https://github.com/cemerick/self-maven-repo/maven/releases</url>
+	</repository>
+	<snapshotRepository>
+		<id>snapshot-repo</id>
+		<url>https://github.com/cemerick/self-maven-repo/maven/snapshots</url>
+	</snapshotRepository>
+</distributionManagement>
+  
 </project>
