@@ -1,9 +1,7 @@
 package com.wedoqa.self.rules;
 
 import java.io.File;
-import java.io.FileOutputStream;
 
-import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.io.FileUtils;
 import org.junit.rules.MethodRule;
 import org.junit.runners.model.FrameworkMethod;

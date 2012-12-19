@@ -16,15 +16,25 @@
     <distributionManagement>
 	<repository>
 		<id>repo</id>
-		<url>https://github.com/cemerick/self-maven-repo/maven/releases</url>
+		<url>https://github.com/WeDoQA/self/raw/master/maven/releases</url>
 	</repository>
 	<snapshotRepository>
 		<id>snapshot-repo</id>
-		<url>https://github.com/cemerick/self-maven-repo/maven/snapshots</url>
+		<url>https://github.com/WeDoQA/self/raw/master/maven/snapshots</url>
 	</snapshotRepository>
-</distributionManagement>
+	</distributionManagement>
+ 
+ 
  
   <dependencies>
+  
+  <dependency>
+	<groupId>postgresql</groupId>
+	<artifactId>postgresql</artifactId>
+	<version>9.1-901.jdbc4</version>
+</dependency>  
+
+
   <dependency>
 	<groupId>junit</groupId>
 	<artifactId>junit</artifactId>
