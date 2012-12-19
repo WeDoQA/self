@@ -9,10 +9,7 @@ The idea behind this project is to create a default settings for webdriver testi
 What this project currently have:
 - A screenshot is being created when a test fails
 - By defualt a Firefox driver is being created with certain settings.
-- 
 
-
-Usage:
 
 
 
