@@ -6,7 +6,7 @@ Selenium Framework
 The idea behind this project is to create a default settings for webdriver testing and to gather all of the commonly used testing functions / constructions into one place.
 
 
-What this project currently have:
+What do we have in this project?
 - A screenshot is being created when a test fails
 - By defualt a Firefox driver is being created with certain settings.
 
