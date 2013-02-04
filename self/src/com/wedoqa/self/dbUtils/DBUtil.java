@@ -23,9 +23,9 @@ import org.slf4j.LoggerFactory;
 public class DBUtil {
 	final static Logger logger = LoggerFactory.getLogger(DBUtil.class);
 
-	String url = "jdbc:postgresql://localhost:1212/chdbprod";
-	String user = "chuserprod";
-	String password = "chexagon!";
+	String url = "jdbc:postgresql://localhost:5432/mydb";
+	String user = "username";
+	String password = "pass";
 	PGConnectionPoolDataSource source;
 
 	/**
