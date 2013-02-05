@@ -42,7 +42,7 @@ public abstract class TestBase {
 	      
 	    @BeforeClass
 	    public static void beforeClass() {
-	    	  driver = new FirefoxDriver();	      
+	    	 // driver = new FirefoxDriver();	      
 		    }
 	 
 	    @AfterClass
