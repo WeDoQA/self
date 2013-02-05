@@ -17,16 +17,11 @@ import org.slf4j.LoggerFactory;
  * DB Util class
  * This class is responsible for masking the connection code form the other parts of the system
  * 
- * @author Crimson_User
+ * 
  *
  */
 public class DBUtil {
 	final static Logger logger = LoggerFactory.getLogger(DBUtil.class);
-
-	String url = "jdbc:postgresql://localhost:5432/mydb";
-	String user = "username";
-	String password = "pass";
-	PGConnectionPoolDataSource source;
 
 	/**
 	 * Finds all the values for the given query
