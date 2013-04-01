@@ -1,31 +1,22 @@
 package com.wedoqa.self.main;
 
 import java.net.MalformedURLException;
-import java.util.UUID;
 
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 
-import test.java.com.ch.db.TagQueries;
-import test.java.com.ch.db.Tunnel;
+/**
+ * 
+ * @author Tihomir Turzai @ WeDoQA
+ *
+ */
+public class TestBaseTunnel extends TestBase {
 
-public class TestBaseTunnel extends TestBase{
-
-	static Tunnel tunnel;
-	private String username;
-	private String password;
-	private String userId;
-	
 	public TestBaseTunnel(String browser) throws MalformedURLException {
 		super(browser);
-		username = UUID.randomUUID().toString().replace("-", "").substring(0, 11);
-		password = username;
-		PasswordEncryptionHelper.createUser(username);
-		userId = TagQueries.getUserIdByUsername(username);
-		System.out.println(username);
-		System.out.println(password);
-	
 	}
+
+	static Tunnel tunnel;
 
 
 	@BeforeClass
@@ -39,34 +30,6 @@ public class TestBaseTunnel extends TestBase{
 	}
 
 
-	public  String getUsername() {
-		return username;
-	}
-
-
-	public  void setUsername(String username) {
-		this.username = username;
-	}
-
-
-	public  String getPassword() {
-		return password;
-	}
-
-
-	public  void setPassword(String password) {
-		this.password = password;
-	}
-
-
-	public  String getUserId() {
-		return userId;
-	}
-
-
-	public  void setUserId(String userId) {
-		this.userId = userId;
-	}
 	
 	
 }

@@ -1,4 +1,4 @@
-package test.java.com.ch.utils;
+package com.wedoqa.self.main;
 
 import java.net.MalformedURLException;
 import java.net.URL;
