@@ -42,10 +42,9 @@ public class TestBase {
 	private ThreadLocal<RemoteWebDriver> threaddriver = null;
 
 
-	public TestBase(String browser) throws MalformedURLException{
+	public TestBase(String browser, String server) throws MalformedURLException{
 		logger.info("Current Browser : " +  browser);
 
-		String server = "http://192.168.231.159:4444/wd/hub";
 		DesiredCapabilities dc = new DesiredCapabilities();
 		//dc.setPlatform(Platform.WINDOWS);		
 		threaddriver = new ThreadLocal<RemoteWebDriver>();

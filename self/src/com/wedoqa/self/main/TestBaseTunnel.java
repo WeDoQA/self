@@ -12,24 +12,18 @@ import org.junit.BeforeClass;
  */
 public class TestBaseTunnel extends TestBase {
 
-	public TestBaseTunnel(String browser) throws MalformedURLException {
-		super(browser);
+	public TestBaseTunnel(String browser,String server,String host, String user, String password, String tunnelRemoteHost) throws MalformedURLException {
+		super(browser,server);
+		tunnel = Tunnel.startTunnel(host,  user,  password,  tunnelRemoteHost);
 	}
 
 	static Tunnel tunnel;
-
-
-	@BeforeClass
-	public static void beforeClass() {
-		tunnel = Tunnel.startTunnel();
-		}
+	
 
 	@AfterClass
 	public static void destroytunnel() {
 		Tunnel.stopTunnel(tunnel);		
 	}
-
-
 	
 	
 }

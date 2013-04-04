@@ -17,9 +17,21 @@ public class Tunnel {
 
 	Session session;
 	final static Logger logger = LoggerFactory.getLogger(Tunnel.class);
+	String host; 
+	String user; 
+	String password; 
+	String tunnelRemoteHost;
+	public Tunnel(String host2, String user2, String password2,
+			String tunnelRemoteHost2) {
+		this.host = host2;
+		this.user = user2;
+		this.password = password2;
+		this.tunnelRemoteHost = tunnelRemoteHost2;
+	}
 
-	public static Tunnel startTunnel(){
-		Tunnel t=new Tunnel();
+	public static Tunnel startTunnel(String host, String user, String password, String tunnelRemoteHost){
+		Tunnel t=new Tunnel( host,  user,  password,  tunnelRemoteHost);
+
 		try{
 			t.go();
 		} catch(Exception ex){
@@ -31,12 +43,12 @@ public class Tunnel {
 		tunnel.stop();
 	}
 	public static void main(String[] args){
-		Tunnel t=new Tunnel();
-		try{
-			t.go();
-		} catch(Exception ex){
-			ex.printStackTrace();
-		}
+//		Tunnel t=new Tunnel();
+//		try{
+//			t.go();
+//		} catch(Exception ex){
+//			ex.printStackTrace();
+//		}
 	}
 
 	public void stop(){
@@ -51,15 +63,15 @@ public class Tunnel {
 	}
 	public void go() throws Exception{
 		// TODO put the connection info to a property file
-		String host="vt156.crimsonhexagon.com";
-		String user="prod";
-		String password="chexagon!";
+		//		String host="test.com";
+		//		String user="test";
+		//		String password="test!";
 		int port=22;
 
 		int tunnelLocalPort=1212;
-		String tunnelRemoteHost="172.16.23.223";
+		//	String tunnelRemoteHost="192.168.0.1";
 		int tunnelRemotePort=5432;
-		
+
 		JSch jsch=new JSch();
 		session=jsch.getSession(user, host, port);
 		session.setPassword(password);
