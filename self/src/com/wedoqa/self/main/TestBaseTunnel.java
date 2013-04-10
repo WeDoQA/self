@@ -3,7 +3,6 @@ package com.wedoqa.self.main;
 import java.net.MalformedURLException;
 
 import org.junit.AfterClass;
-import org.junit.BeforeClass;
 
 /**
  * 
@@ -13,7 +12,7 @@ import org.junit.BeforeClass;
 public class TestBaseTunnel extends TestBase {
 
 	public TestBaseTunnel(String browser,String server,String host, String user, String password, String tunnelRemoteHost) throws MalformedURLException {
-		super(browser,server);
+		super(browser);
 		tunnel = Tunnel.startTunnel(host,  user,  password,  tunnelRemoteHost);
 	}
 

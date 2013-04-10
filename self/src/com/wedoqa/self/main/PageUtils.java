@@ -31,6 +31,17 @@ public class PageUtils {
 		}
 	}
 	
+	public void waitForGraphLoadToDisappear() {
+		try{
+			Thread.sleep(500);
+		} catch (InterruptedException e1) {
+		}
+		try{
+			WebDriverWait wait = new WebDriverWait(driver, 10);
+			wait.until(ExpectedConditions.not(ExpectedConditions.presenceOfElementLocated(By.cssSelector("#loading"))));
+		}catch (TimeoutException e1) {
+		}
+	}
 	public void waitForElementToAppear(String cssLocator) {
 		waitForElementToAppear(By.cssSelector(cssLocator));
 		
@@ -42,7 +53,7 @@ public class PageUtils {
 		} catch (InterruptedException e1) {
 			e1.printStackTrace();
 		}
-		WebDriverWait wait = new WebDriverWait(driver, 20);
+		WebDriverWait wait = new WebDriverWait(driver, 80);
 		int count = 0; 
 		while (count < 4){
 			try {
@@ -67,7 +78,7 @@ public class PageUtils {
 		} catch (InterruptedException e1) {
 			e1.printStackTrace();
 		}
-		WebDriverWait wait = new WebDriverWait(driver, 10);
+		WebDriverWait wait = new WebDriverWait(driver, 30);
 		WebElement element = null;
 		int count = 0; 
 		while (count < 4){

@@ -17,6 +17,7 @@ import org.openqa.selenium.firefox.FirefoxProfile;
 import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
+import org.openqa.selenium.safari.SafariDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -30,21 +31,33 @@ public class TestBase {
 
 
 	protected final static Logger logger = LoggerFactory.getLogger(TestBase.class);
-
-	// @Rule
-	//  public ScreenshotTestRule screenshotTestRule = new ScreenshotTestRule();
+	public static Boolean remote =  true;
 
 	@Rule 
 	public TestName name = new TestName();
 
-
-
 	private ThreadLocal<RemoteWebDriver> threaddriver = null;
 
+	public TestBase(String browser,Boolean debug) throws MalformedURLException{
+		String browsersParam = "iexplorer9";
+		this.remote = debug;
+		createDrivers(browsersParam);
+	}
+	/**
+	 * Constructor which sends out the command for browser creation
+	 * Every browser will be send out to grid for 
+	 * @param browser
+	 * @throws MalformedURLException
+	 */
+	public TestBase(String browser) throws MalformedURLException{
+		createDrivers(browser);
 
-	public TestBase(String browser, String server) throws MalformedURLException{
+	}
+
+	public void createDrivers(String browser) throws MalformedURLException{
 		logger.info("Current Browser : " +  browser);
 
+		String server = "http://192.168.231.159:4444/wd/hub";
 		DesiredCapabilities dc = new DesiredCapabilities();
 		//dc.setPlatform(Platform.WINDOWS);		
 		threaddriver = new ThreadLocal<RemoteWebDriver>();
@@ -53,57 +66,68 @@ public class TestBase {
 			dc.setCapability(FirefoxDriver.PROFILE, fp);
 			//dc.setPlatform(Platform.WINDOWS);
 			dc.setBrowserName(DesiredCapabilities.firefox().getBrowserName());
-			threaddriver.set(new RemoteWebDriver(new URL(server), dc));
-		//	threaddriver.set(new FirefoxDriver());
+
+			if (remote)
+				threaddriver.set(new RemoteWebDriver(new URL(server), dc));
+			else
+				threaddriver.set(new FirefoxDriver(dc));
 		}else
 			if (browser.equalsIgnoreCase("iexplorer8")) {
 				dc.setBrowserName(DesiredCapabilities.internetExplorer().getBrowserName());
 				dc.setVersion("8");
-				//threaddriver.set(new InternetExplorerDriver(dc));
-
+				if (remote)
 					threaddriver.set(new RemoteWebDriver(new URL(server), dc));
+				else
+					threaddriver.set(new InternetExplorerDriver(dc));
+
 			}else
 				if (browser.equalsIgnoreCase("iexplorer9")) {
 					//			threaddriver.set(new InternetExplorerDriver());
 					dc.setBrowserName(DesiredCapabilities.internetExplorer().getBrowserName());
 					dc.setVersion("9");		
-					threaddriver.set(new InternetExplorerDriver(dc));
-
-					//threaddriver.set(new RemoteWebDriver(new URL(server), dc));
+					if (remote)
+						threaddriver.set(new RemoteWebDriver(new URL(server), dc));					
+					else
+						threaddriver.set(new InternetExplorerDriver(dc));
 				}else
 					if (browser.equalsIgnoreCase("iexplorer10")) {						
 						dc.setBrowserName(DesiredCapabilities.internetExplorer().getBrowserName());
 						dc.setVersion("10");
-						threaddriver.set(new RemoteWebDriver(new URL(server), dc));
+						if (remote)
+							threaddriver.set(new RemoteWebDriver(new URL(server), dc));
+						else
+							threaddriver.set(new InternetExplorerDriver(dc));
 					}else
 						if (browser.equalsIgnoreCase("chrome")) {
 							dc.setBrowserName(DesiredCapabilities.chrome().getBrowserName());
-							threaddriver.set(new ChromeDriver( dc));
-						//	threaddriver.set(new RemoteWebDriver(new URL(server), dc));
+							if (remote)
+								threaddriver.set(new RemoteWebDriver(new URL(server), dc));							
+							else
+								threaddriver.set(new ChromeDriver( dc));							
 						}  else
 							if (browser.equalsIgnoreCase("safari")) {
 								dc.setBrowserName(DesiredCapabilities.safari().getBrowserName());
-								//threaddriver.set(new SafariDriver(dc));
-								threaddriver.set(new RemoteWebDriver(new URL(server), dc));
+								if (remote)
+									threaddriver.set(new RemoteWebDriver(new URL(server), dc));
+								else
+									threaddriver.set(new SafariDriver(dc));
 							}
 	}
 
-
 	@Parameters(name = "Browser: {0}")
 	public static Collection<String[]> generateData(){
-	//		String browsersParam = System.getProperty("browsers");
+
+		String browsersParam = System.getProperty("browsers");
 		//logger.info("Reading config file : " + browsersParam);
 		//	String browsersParam = "iexplorer9,iexplorer10";
 
 		//	String browsersParam = "firefox,chrome,iexplorer9,iexplorer10";
-		String browsersParam = "chrome";
 
 		//iexplorer9,iexplorer8,chrome,
 		Collection<String[]> b = new ArrayList<String[]>();
 		if (browsersParam != null) {
 			String[] browserParamList = browsersParam.split(","); 
 			//Object[][] data = new Object[][] { { 1 }, { 2 }, { 3 }, { 4 },{5},{} };
-
 
 			for (int i=0;i<browserParamList.length;i++){			
 				switch (browserParamList[i]){
@@ -138,9 +162,13 @@ public class TestBase {
 
 	}
 
-
 	public RemoteWebDriver getDriver() {
 		return threaddriver.get();
+	}
+
+
+	public Boolean getRemote() {
+		return remote;
 	}
 
 
