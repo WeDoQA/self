@@ -16,6 +16,11 @@ public class TestBaseTunnel extends TestBase {
 		tunnel = Tunnel.startTunnel(host,  user,  password,  tunnelRemoteHost);
 	}
 
+	public TestBaseTunnel(String browser,String server,String host, String user, String password, String tunnelRemoteHost, Boolean live) throws MalformedURLException {
+		super(browser,live);
+		tunnel = Tunnel.startTunnel(host,  user,  password,  tunnelRemoteHost);
+	}
+	
 	static Tunnel tunnel;
 	
 
