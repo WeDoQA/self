@@ -28,8 +28,9 @@ import org.slf4j.LoggerFactory;
  */
 @RunWith(Parallelized.class)
 public class TestBase {
-
-	String server = "http://192.168.231.159:4444/wd/hub";
+	// TODO: refactor the initialization
+	// TODO: recheck the screenshot creation code
+	static String server = "http://localhost:4444/wd/hub";
 	protected final static Logger logger = LoggerFactory.getLogger(TestBase.class);
 	public static Boolean remote =  true;
 
@@ -169,11 +170,11 @@ public class TestBase {
 	public Boolean getRemote() {
 		return remote;
 	}
-	public String getServer() {
+	public static String getServer() {
 		return server;
 	}
-	public void setServer(String server) {
-		this.server = server;
+	public static void setServer(String server) {
+		TestBase.server = server;
 	}
 
 
