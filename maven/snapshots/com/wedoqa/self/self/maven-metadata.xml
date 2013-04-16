@@ -4,10 +4,8 @@
   <artifactId>self</artifactId>
   <versioning>
     <versions>
-      <version>0.0.1-SNAPSHOT</version>
-      <version>0.0.2-SNAPSHOT</version>
-      <version>0.0.3-SNAPSHOT</version>
+      <version>0.0.4-SNAPSHOT</version>
     </versions>
-    <lastUpdated>20130412165220</lastUpdated>
+    <lastUpdated>20130416140232</lastUpdated>
   </versioning>
 </metadata>
