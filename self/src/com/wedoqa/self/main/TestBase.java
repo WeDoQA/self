@@ -29,7 +29,7 @@ import org.slf4j.LoggerFactory;
 @RunWith(Parallelized.class)
 public class TestBase {
 
-
+	String server = "http://192.168.231.159:4444/wd/hub";
 	protected final static Logger logger = LoggerFactory.getLogger(TestBase.class);
 	public static Boolean remote =  true;
 
@@ -40,7 +40,7 @@ public class TestBase {
 
 	public TestBase(String browser,Boolean debug) throws MalformedURLException{
 		String browsersParam = "iexplorer9";
-		this.remote = debug;
+		TestBase.remote = debug;
 		createDrivers(browsersParam);
 	}
 	/**
@@ -57,7 +57,6 @@ public class TestBase {
 	public void createDrivers(String browser) throws MalformedURLException{
 		logger.info("Current Browser : " +  browser);
 
-		String server = "http://192.168.231.159:4444/wd/hub";
 		DesiredCapabilities dc = new DesiredCapabilities();
 		//dc.setPlatform(Platform.WINDOWS);		
 		threaddriver = new ThreadLocal<RemoteWebDriver>();
@@ -169,6 +168,12 @@ public class TestBase {
 
 	public Boolean getRemote() {
 		return remote;
+	}
+	public String getServer() {
+		return server;
+	}
+	public void setServer(String server) {
+		this.server = server;
 	}
 
 
