@@ -21,6 +21,8 @@ import org.openqa.selenium.safari.SafariDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.wedoqa.self.rules.ScreenshotTestRule;
+
 /**
  * The base 
  * @author Tihomir Turzai @ WeDoQA
@@ -37,10 +39,13 @@ public class TestBase {
 	@Rule 
 	public TestName name = new TestName();
 
+	@Rule
+	public ScreenshotTestRule screenshotTestRule = new ScreenshotTestRule();
+
 	private ThreadLocal<RemoteWebDriver> threaddriver = null;
 
 	public TestBase(String browser,Boolean debug) throws MalformedURLException{
-		String browsersParam = "iexplorer9";
+		String browsersParam = "chrome";
 		TestBase.remote = debug;
 		createDrivers(browsersParam);
 	}

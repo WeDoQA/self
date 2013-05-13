@@ -8,6 +8,11 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+/**
+ * 
+ * 
+ *
+ */
 public class PageUtils {
 
 	WebDriver driver;
@@ -18,7 +23,19 @@ public class PageUtils {
 		this.driver = driver;
 	}
 
-
+/**
+ * Waits for a given time
+ * @param milis
+ */
+	public void waitFor(Integer milis){
+		try{
+			Thread.sleep(milis);
+		} catch (InterruptedException e1) {
+		}
+	}
+	/**
+	 * Waits for the  load indicator selected with ".ajaxworking" to disappear 
+	 */
 	public void waitForLoadToDisappear() {
 		try{
 			Thread.sleep(500);
@@ -30,7 +47,24 @@ public class PageUtils {
 		}catch (TimeoutException e1) {
 		}
 	}
-	
+
+	/**
+	 * Waits for the post load indicator selected with "form#more img" to disappear
+	 */
+	public void waitForPostLoadToDisappear() {
+		try{
+			Thread.sleep(500);
+		} catch (InterruptedException e1) {
+		}
+
+		WebDriverWait wait = new WebDriverWait(driver, 50);
+		wait.until(ExpectedConditions.not(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("form#more img"))));
+
+	}
+
+	/**
+	 * Waits for the post load indicator selected with "#loading" to disappear
+	 */
 	public void waitForGraphLoadToDisappear() {
 		try{
 			Thread.sleep(500);
@@ -42,11 +76,12 @@ public class PageUtils {
 		}catch (TimeoutException e1) {
 		}
 	}
+	
 	public void waitForElementToAppear(String cssLocator) {
 		waitForElementToAppear(By.cssSelector(cssLocator));
-		
+
 	}
-	
+
 	public void waitForElementToAppear(By locator) {
 		try {
 			Thread.sleep(500);
@@ -67,10 +102,10 @@ public class PageUtils {
 			count = count+4;
 		}
 	}
-	
+
 	public void waitForElementWithTextToAppear(String cssLocator) {
 		waitForElementWithTextToAppear(By.cssSelector(cssLocator));
-		
+
 	}
 	public String waitForElementWithTextToAppear(By selector) {
 		try {
