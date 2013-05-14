@@ -45,9 +45,10 @@ public class TestBase {
 	private ThreadLocal<RemoteWebDriver> threaddriver = null;
 
 	public TestBase(String browser,Boolean debug) throws MalformedURLException{
-		String browsersParam = "chrome";
+		if (browser.equals(""))
+			browser = "chrome";
 		TestBase.remote = debug;
-		createDrivers(browsersParam);
+		createDrivers(browser);
 	}
 	/**
 	 * Constructor which sends out the command for browser creation

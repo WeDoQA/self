@@ -39,6 +39,8 @@ public class ScreenshotTestRule implements MethodRule {
                FileUtils.copyFile(screenshot, new File("./screenshots/screenshot-"+fileName+".png"));
 
                 } catch (Exception e) {
+                	//TODO fix the screenshot rule
+                	//e.printStackTrace();
                     // No need to crash the tests if the screenshot fails
                 }
             }
