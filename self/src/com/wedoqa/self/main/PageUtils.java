@@ -92,7 +92,7 @@ public class PageUtils {
 		int count = 0; 
 		while (count < 4){
 			try {
-				wait.until(ExpectedConditions.elementToBeClickable(locator));
+				wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
 				return;
 			} catch (StaleElementReferenceException e){
 				e.toString();
