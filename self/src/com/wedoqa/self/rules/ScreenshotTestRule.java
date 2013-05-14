@@ -31,6 +31,7 @@ public class ScreenshotTestRule implements MethodRule {
                     captureScreenshot(frameworkMethod.getName(), (TestBase) o);
                     throw t; // rethrow to allow the failure to be reported to JUnit
                 }
+             ((TestBase) o).getDriver().quit();
             }
  
             public void captureScreenshot(String fileName, TestBase testBase) {
