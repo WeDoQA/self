@@ -35,7 +35,7 @@ public class TestBase {
 	static String server = "http://localhost:4444/wd/hub";
 	protected final static Logger logger = LoggerFactory.getLogger(TestBase.class);
 	public static Boolean remote =  true;
-
+	public static String browser;
 	@Rule 
 	public TestName name = new TestName();
 
@@ -44,9 +44,7 @@ public class TestBase {
 
 	private ThreadLocal<RemoteWebDriver> threaddriver = null;
 
-	public TestBase(String browser,Boolean debug) throws MalformedURLException{
-		if (browser.equals(""))
-			browser = "chrome";
+	public TestBase(String browser, Boolean debug) throws MalformedURLException{		
 		TestBase.remote = debug;
 		createDrivers(browser);
 	}
@@ -164,7 +162,7 @@ public class TestBase {
 
 	@After
 	public void afterClass() {	      
-		
+
 
 	}
 
@@ -182,6 +180,13 @@ public class TestBase {
 	public static void setServer(String server) {
 		TestBase.server = server;
 	}
+	public static String getBrowser() {
+		return browser;
+	}
+	public static void setBrowser(String browser) {
+		TestBase.browser = browser;
+	}
+	
 
 
 

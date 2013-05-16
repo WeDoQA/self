@@ -36,6 +36,7 @@ public class PageUtils {
 	/**
 	 * Waits for the  load indicator selected with ".ajaxworking" to disappear 
 	 */
+	//TODO check this condition
 	public void waitForLoadToDisappear() {
 		try{
 			Thread.sleep(500);
