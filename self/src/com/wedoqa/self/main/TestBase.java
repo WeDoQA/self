@@ -15,6 +15,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxProfile;
 import org.openqa.selenium.ie.InternetExplorerDriver;
+import org.openqa.selenium.remote.Augmenter;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.safari.SafariDriver;
@@ -56,7 +57,6 @@ public class TestBase {
 	 */
 	public TestBase(String browser) throws MalformedURLException{
 		createDrivers(browser);
-
 	}
 
 	public void createDrivers(String browser) throws MalformedURLException{
@@ -116,6 +116,7 @@ public class TestBase {
 								else
 									threaddriver.set(new SafariDriver(dc));
 							}
+	
 	}
 
 	@Parameters(name = "Browser: {0}")
@@ -162,7 +163,6 @@ public class TestBase {
 
 	@After
 	public void afterClass() {	      
-
 
 	}
 

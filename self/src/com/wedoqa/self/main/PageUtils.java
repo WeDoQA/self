@@ -46,6 +46,7 @@ public class PageUtils {
 			WebDriverWait wait = new WebDriverWait(driver, 20);
 			wait.until(ExpectedConditions.not(ExpectedConditions.presenceOfElementLocated(By.cssSelector(".ajaxWorking"))));
 		}catch (TimeoutException e1) {
+			
 		}
 	}
 
@@ -75,6 +76,7 @@ public class PageUtils {
 			WebDriverWait wait = new WebDriverWait(driver, 20);
 			wait.until(ExpectedConditions.not(ExpectedConditions.presenceOfElementLocated(By.cssSelector("#loading"))));
 		}catch (TimeoutException e1) {
+			e1.printStackTrace();  
 		}
 	}
 	

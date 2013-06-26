@@ -8,6 +8,9 @@ import org.junit.runners.model.FrameworkMethod;
 import org.junit.runners.model.Statement;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.remote.Augmenter;
+import org.openqa.selenium.remote.RemoteWebDriver;
 
 import com.wedoqa.self.main.TestBase;
 
@@ -20,31 +23,36 @@ import com.wedoqa.self.main.TestBase;
  *
  */
 public class ScreenshotTestRule implements MethodRule {
-    public Statement apply(final Statement statement, final FrameworkMethod frameworkMethod, final Object o) {
-        return new Statement() {
-            @Override
-            public void evaluate() throws Throwable {
-                try {
-                    statement.evaluate();
-                } catch (Throwable t) {
-                	
-                    captureScreenshot(frameworkMethod.getName(), (TestBase) o);
-                    throw t; // rethrow to allow the failure to be reported to JUnit
-                }
-             ((TestBase) o).getDriver().quit();
-            }
- 
-            public void captureScreenshot(String fileName, TestBase testBase) {
-                try {
-               File screenshot =  ((TakesScreenshot)testBase.getDriver()).getScreenshotAs(OutputType.FILE);
-               FileUtils.copyFile(screenshot, new File("./screenshots/screenshot-"+fileName+".png"));
+	public Statement apply(final Statement statement, final FrameworkMethod frameworkMethod, final Object o) {
+		return new Statement() {
+			@Override
+			public void evaluate() throws Throwable {
+				try {
+					statement.evaluate();
+				} catch (Throwable t) {
 
-                } catch (Exception e) {
-                	//TODO fix the screenshot rule
-                	//e.printStackTrace();
-                    // No need to crash the tests if the screenshot fails
-                }
-            }
-        };
-    }
+					captureScreenshot(frameworkMethod.getName(), (TestBase) o);
+					throw t; // rethrow to allow the failure to be reported to JUnit
+				}
+				((TestBase) o).getDriver().quit();
+			}
+
+			public void captureScreenshot(String fileName, TestBase testBase) {
+				try {
+					File screenshot;
+					if (testBase.getDriver() instanceof RemoteWebDriver){
+						WebDriver webdriver = new Augmenter().augment(testBase.getDriver()); 
+						 screenshot =  ((TakesScreenshot)webdriver).getScreenshotAs(OutputType.FILE);						
+					}else{
+						 screenshot =  ((TakesScreenshot)testBase.getDriver()).getScreenshotAs(OutputType.FILE);
+					}
+					FileUtils.copyFile(screenshot, new File("./screenshots/screenshot-"+fileName+".png"));
+				} catch (Exception e) {
+					
+					//e.printStackTrace();
+					// No need to crash the tests if the screenshot fails
+				}
+			}
+		};
+	}
 }
