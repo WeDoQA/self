@@ -1,12 +1,18 @@
 package com.wedoqa.self.main;
 
+import java.util.List;
+
 import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+
+import com.gargoylesoftware.htmlunit.ElementNotFoundException;
 
 /**
  * 
@@ -23,10 +29,10 @@ public class PageUtils {
 		this.driver = driver;
 	}
 
-/**
- * Waits for a given time
- * @param milis
- */
+	/**
+	 * Waits for a given time
+	 * @param milis
+	 */
 	public void waitFor(Integer milis){
 		try{
 			Thread.sleep(milis);
@@ -46,7 +52,7 @@ public class PageUtils {
 			WebDriverWait wait = new WebDriverWait(driver, 20);
 			wait.until(ExpectedConditions.not(ExpectedConditions.presenceOfElementLocated(By.cssSelector(".ajaxWorking"))));
 		}catch (TimeoutException e1) {
-			
+
 		}
 	}
 
@@ -79,7 +85,7 @@ public class PageUtils {
 			e1.printStackTrace();  
 		}
 	}
-	
+
 	public void waitForElementToAppear(String cssLocator) {
 		waitForElementToAppear(By.cssSelector(cssLocator));
 
@@ -91,7 +97,7 @@ public class PageUtils {
 		} catch (InterruptedException e1) {
 			e1.printStackTrace();
 		}
-		WebDriverWait wait = new WebDriverWait(driver, 80);
+		WebDriverWait wait = new WebDriverWait(driver, 100);
 		int count = 0; 
 		while (count < 4){
 			try {
@@ -131,5 +137,22 @@ public class PageUtils {
 			count = count+4;
 		}
 		return element.getText();
+	}
+
+	public void waitForElementToDisappear(final By xpath) {
+		WebDriverWait wdw = new WebDriverWait(driver, 40);
+		ExpectedCondition<Boolean> condition = new ExpectedCondition<Boolean>() {
+			@Override
+			public Boolean apply(WebDriver d) {
+				try{
+					WebElement element = d.findElement(xpath);
+					return false;
+				}catch(NoSuchElementException ex){
+					return true;
+				}     
+			}
+		};
+		wdw.until(condition);
+
 	}
 }
