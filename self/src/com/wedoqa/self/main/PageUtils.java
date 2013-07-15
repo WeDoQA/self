@@ -139,6 +139,7 @@ public class PageUtils {
 		return element.getText();
 	}
 
+	@SuppressWarnings("unused")
 	public void waitForElementToDisappear(final By xpath) {
 		WebDriverWait wdw = new WebDriverWait(driver, 40);
 		ExpectedCondition<Boolean> condition = new ExpectedCondition<Boolean>() {
@@ -155,4 +156,52 @@ public class PageUtils {
 		wdw.until(condition);
 
 	}
+	
+	public WebElement waitForElement(final By by) {
+        WebElement elementToWaitFor = null;
+        int waitTime = 10; // time provided in seconds
+        int count = 0; 
+		while (count < 2){
+			try {
+	            WebElement myDynamicElement = (new WebDriverWait(driver, waitTime)).until(new ExpectedCondition<WebElement>() {
+	                public WebElement apply(WebDriver d) {
+	                    return d.findElement(by);
+	                }
+	            });
+	            elementToWaitFor = myDynamicElement;
+	            break;
+			}catch (StaleElementReferenceException e){
+				e.toString();
+				System.out.println("Trying to recover from a stale element :" + e.getMessage());
+				count = count+1;
+			}
+		}
+		return elementToWaitFor;
+	}
+	
+	public WebElement waitForElement(WebElement element) {
+        WebElement elementToWaitFor = null;
+        int waitTime = 10; // time provided in seconds
+        int count = 0; 
+		while (count < 2){
+			try {				
+				elementToWaitFor = (new WebDriverWait(driver, waitTime)).until(ExpectedConditions.visibilityOf(element));	            
+	            break;
+			}catch (StaleElementReferenceException e){
+				e.toString();
+				System.out.println("Trying to recover from a stale element :" + e.getMessage());
+				count = count+1;
+			}
+		}
+		return elementToWaitFor;
+	}
+	
+	public boolean isElementPresent(By by) {
+        try {
+        	driver.findElement(by).isDisplayed();
+            return true;
+        } catch (NoSuchElementException e) {
+            return false;
+        }
+    }
 }
